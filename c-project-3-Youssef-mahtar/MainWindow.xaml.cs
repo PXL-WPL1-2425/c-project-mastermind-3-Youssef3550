@@ -25,6 +25,7 @@ namespace c_project_3_Youssef_mahtar
     public partial class MainWindow : Window
     {
         DispatcherTimer timer = new DispatcherTimer();
+        private bool timerLoopt = false;
         private List<string> code;
         int attempts = 1;
         int maxAttempts = 10;
@@ -32,7 +33,9 @@ namespace c_project_3_Youssef_mahtar
         int sec = 0;
         int score = 100;
         string[] highScore = new string[15];
+        string highScoreList;
         string playerName = "";
+        List<string> spelersLijst = new List<string>();
         public MainWindow()
         {
             InitializeComponent();
@@ -46,6 +49,25 @@ namespace c_project_3_Youssef_mahtar
             timer.Interval = new TimeSpan(0, 0, 0, 1);
             timer.Tick += startCountdown;
             timer.Start();
+            timerLoopt = false;
+        }
+
+        private void TimerPauze()
+        {
+            if (timer.IsEnabled)
+            {
+                timer.Stop();
+                timerLoopt = true;
+            }
+        }
+
+        private void TimerContinue()
+        {
+            if (timerLoopt)
+            {
+                timer.Start();
+                timerLoopt = false;
+            }
         }
 
         private void startCountdown(object sender, EventArgs e)
@@ -251,6 +273,8 @@ namespace c_project_3_Youssef_mahtar
             if (Label1.BorderBrush == Brushes.DarkRed && Label2.BorderBrush == Brushes.DarkRed &&
                 Label3.BorderBrush == Brushes.DarkRed && Label4.BorderBrush == Brushes.DarkRed)
             {
+                TimerPauze();
+                highscoreRegistreren();
                 var result = MessageBox.Show
                     ($"Code gekraakt in {attempts} pogingen! Wil je nog eens?",
                     "WINNER!",
@@ -260,7 +284,9 @@ namespace c_project_3_Youssef_mahtar
                 if (result == MessageBoxResult.Yes)
                 {
                     nieuwSpel();
+                    TimerContinue();
                 }
+
 
             }
         }
@@ -375,6 +401,7 @@ namespace c_project_3_Youssef_mahtar
 
             if (attempts > maxAttempts)
             {
+                TimerPauze();
                 var result = MessageBox.Show($"You failed! De correcte code was {codeString}." +
                     $"Nog eens proberen?", "FAILED"
                     , MessageBoxButton.YesNo
@@ -384,6 +411,7 @@ namespace c_project_3_Youssef_mahtar
                 {
                     nieuwSpel();
                 }
+                TimerContinue();
             }
         }
 
@@ -391,10 +419,12 @@ namespace c_project_3_Youssef_mahtar
         {
             if (sec > 10)
             {
+                TimerPauze();
                 MessageBox.Show("Tijd is op.");
                 sec = 0;
                 attempts++;
                 Attempts();
+                TimerContinue();
             }
         }
         private void showScore()
@@ -404,12 +434,8 @@ namespace c_project_3_Youssef_mahtar
 
         private void nieuwSpel()
         {
+            TimerPauze();
             startGame();
-
-            sec = 0;
-            attempts = 1;
-            score = 100;
-
             ComboBox1.Items.Clear();
             ComboBox2.Items.Clear();
             ComboBox3.Items.Clear();
@@ -419,9 +445,15 @@ namespace c_project_3_Youssef_mahtar
             TextBoxCode();
             Attempts();
             updateWrapPanels();
+            TimerContinue();
+            sec = 0;
+            attempts = 1;
+            score = 100;
+            showScore();
         }
         private void MnuNieuwSpel_Click(object sender, RoutedEventArgs e)
         {
+            spelersLijst.Clear();
             nieuwSpel();
         }
 
@@ -450,11 +482,13 @@ namespace c_project_3_Youssef_mahtar
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            TimerPauze();
             MessageBoxResult result = MessageBox.Show("Wilt u het spel vroegtijdig beëindigen?", $"Poging {attempts}/{maxAttempts}", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
             if (result == MessageBoxResult.No)
             {
                 e.Cancel = true;
             }
+            TimerContinue();
         }
 
         private void MnuAfluiten_Click(object sender, RoutedEventArgs e)
@@ -465,17 +499,35 @@ namespace c_project_3_Youssef_mahtar
         private void startGame()
         {
             string antwoord = Interaction.InputBox("Geef de PlayerName in!", "PlayerName", "PlayerName", 500);
-            playerName = antwoord;
             while (string.IsNullOrEmpty(antwoord))
             {
                 MessageBox.Show("Geef een Naam in!", "Foutieve invoer");
                 antwoord = Interaction.InputBox("Geef de PlayerName in!", "PlayerName", "PlayerName", 500);
-                playerName = antwoord;
+            }
+            playerName = antwoord;
+            spelersLijst.Add(playerName);
+
+            while (true)
+            {
+                MessageBoxResult result = MessageBox.Show("Wil je nog een speler toevoegen?", "Speler's Toevoegen!", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.No)
+                {
+                    break;
+                }
+
+                string nieuweSpeler = Interaction.InputBox("Geef de PlayerName in!", "PlayerName", "PlayerName", 500);
+                while (string.IsNullOrEmpty(nieuweSpeler))
+                {
+                    MessageBox.Show("Geef een Naam in!", "Foutieve invoer");
+                    nieuweSpeler = Interaction.InputBox("Geef de PlayerName in!", "PlayerName", "PlayerName", 500);
+                }
+                spelersLijst.Add(nieuweSpeler);
             }
         }
 
         private void MnuAantalPoging_Click(object sender, RoutedEventArgs e)
         {
+            TimerPauze();
             string antwoord = Interaction.InputBox("Geef een getal tussen 3 - 20!", "Pogingen aanpassen", "", 500);
             maxAttempts = Convert.ToInt32(antwoord);
             while (string.IsNullOrEmpty(antwoord))
@@ -490,11 +542,47 @@ namespace c_project_3_Youssef_mahtar
                 antwoord = Interaction.InputBox("Geef een getal tussen 3 - 20!", "Pogingen aanpassen", "", 500);
                 maxAttempts = Convert.ToInt32(antwoord);
             }
+            TimerContinue();
         }
 
         private void MnuHighscore_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"{playerName} - {attempts}/{maxAttempts} - {score}", "Mastermind Highscore", MessageBoxButton.OK, MessageBoxImage.None);
+            TimerPauze();
+            showHighscore();
+            TimerContinue();
+        }
+
+        private void highscoreRegistreren()
+        {
+            string highscoreString = $"{playerName} - {attempts} pogingen - {score}/100";
+
+            for (int i = 0; i < highScore.Length; i++)
+            {
+                if (highScore[i] == null)
+                {
+                    highScore[i] = highscoreString;
+                    break;
+                }
+            }
+
+            highScoreList = ""; // reset de Highscore zodat het niet Opnieuw de lijst overpakt en dubbel plakt.
+            for (int i = 0; i < highScore.Length; i++)
+                if (highScore[i] != null)
+                {
+                    highScoreList = highScoreList + "\n " + highScore[i];
+                }
+        }
+
+        private void showHighscore()
+        {
+            if (string.IsNullOrEmpty(highScoreList))
+            {
+                MessageBox.Show("Er zijn nog geen highscores!", "Highscores", MessageBoxButton.OK);
+            }
+            else
+            {
+                MessageBox.Show($"{highScoreList}", "Highscores", MessageBoxButton.OK, MessageBoxImage.None);
+            }
         }
     }
 }
