@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Odbc;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,7 +26,7 @@ namespace c_project_3_Youssef_mahtar
     public partial class MainWindow : Window
     {
         DispatcherTimer timer = new DispatcherTimer();
-        private bool timerLoopt = false;
+        private bool timerGepauzeerd = false;
         private List<string> code;
         int attempts = 1;
         int maxAttempts = 10;
@@ -36,6 +37,7 @@ namespace c_project_3_Youssef_mahtar
         string highScoreList;
         string playerName = "";
         List<string> spelersLijst = new List<string>();
+        int huidigeSpeler = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -49,7 +51,7 @@ namespace c_project_3_Youssef_mahtar
             timer.Interval = new TimeSpan(0, 0, 0, 1);
             timer.Tick += startCountdown;
             timer.Start();
-            timerLoopt = false;
+            timerGepauzeerd = false;
         }
 
         private void TimerPauze()
@@ -57,16 +59,16 @@ namespace c_project_3_Youssef_mahtar
             if (timer.IsEnabled)
             {
                 timer.Stop();
-                timerLoopt = true;
+                timerGepauzeerd = true;
             }
         }
 
         private void TimerContinue()
         {
-            if (timerLoopt)
+            if (timerGepauzeerd)
             {
                 timer.Start();
-                timerLoopt = false;
+                timerGepauzeerd = false;
             }
         }
 
@@ -582,6 +584,34 @@ namespace c_project_3_Youssef_mahtar
             else
             {
                 MessageBox.Show($"{highScoreList}", "Highscores", MessageBoxButton.OK, MessageBoxImage.None);
+            }
+        }
+
+        private void MnuHints_Click(object sender, RoutedEventArgs e)
+        {
+            Random rng = new Random();
+            int random1 = rng.Next(0, 3);
+
+            
+            MessageBoxResult result = MessageBox.Show(
+                "Wil je een hint kopen?\n\n" +
+                "Klik op Ja voor een 'Juiste kleur' (-15 punten)\n" +
+                "Klik op Nee voor een 'Juiste kleur op de juiste plaats' (-25 punten)\n" +
+                "Annuleer om terug te keren zonder een hint te kopen.",
+                "Koop een hint",
+                MessageBoxButton.YesNoCancel,
+                MessageBoxImage.Question
+            );
+
+            if (result == MessageBoxResult.Yes)
+            {
+                MessageBox.Show($"1 Van de juiste kleuren is {code[random1]}");
+                score -= 15;
+            }
+            else if (result == MessageBoxResult.No)
+            {
+                MessageBox.Show($"De kleur {code[random1]} hoort op positie {random1}");
+                score -= 25;
             }
         }
     }
