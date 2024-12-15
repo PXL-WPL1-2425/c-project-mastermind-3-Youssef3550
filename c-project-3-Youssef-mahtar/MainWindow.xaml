@@ -29,7 +29,7 @@
         <Label x:Name="Label4" Content="" HorizontalAlignment="Left" Height="90" Margin="490,262,0,0" VerticalAlignment="Top" Width="186"/>
         <TextBox x:Name="textBoxCode" Background="LightGray" HorizontalAlignment="Left" Height="26" Margin="307,23,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="203" IsEnabled="False" BorderThickness="0"/>
         <TextBox x:Name="tijdTextBox" Background="LightGray" HorizontalAlignment="Left" Height="26" Margin="698,20,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="92" IsEnabled="False"  BorderThickness="0"/>
-        <Label x:Name="scoreTextBox" Background="LightGray" HorizontalAlignment="Left" Height="43" Margin="10,20,0,0" VerticalAlignment="Top" Width="200" IsEnabled="False" BorderThickness="0"/>
+        <Label x:Name="scoreLabel" Background="LightGray" HorizontalAlignment="Left" Height="43" Margin="10,20,0,0" VerticalAlignment="Top" Width="200" IsEnabled="False" BorderThickness="0"/>
         <WrapPanel x:Name="WrapPanel1" HorizontalAlignment="Left" Height="118" Margin="285,84,0,0" VerticalAlignment="Top" Width="110" Background="LightGray" Orientation="Vertical"/>
         <WrapPanel x:Name="WrapPanel2" HorizontalAlignment="Left" Height="118" Margin="285,248,0,0" VerticalAlignment="Top" Width="110" Background="LightGray" Orientation="Vertical"/>
         <WrapPanel x:Name="WrapPanel3" HorizontalAlignment="Left" Height="118" Margin="681,86,0,0" VerticalAlignment="Top" Width="110" Background="LightGray" Orientation="Vertical"/>

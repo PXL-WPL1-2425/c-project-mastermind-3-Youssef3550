@@ -112,7 +112,8 @@ namespace c_project_3_Youssef_mahtar
                     Width = 50,
                     Height = 20,
                     StrokeThickness = 4,
-                    Stroke = Brushes.DarkRed
+                    Stroke = Brushes.DarkRed,
+                    ToolTip = "Juiste kleur, juiste positie"
                 };
                 WrapPanel1.Children.Add(pogingCheck);
             }
@@ -126,7 +127,8 @@ namespace c_project_3_Youssef_mahtar
                     Width = 50,
                     Height = 20,
                     StrokeThickness = 4,
-                    Stroke = Brushes.White
+                    Stroke = Brushes.White,
+                    ToolTip = "Juiste kleur, foute positie"
                 };
                 WrapPanel1.Children.Add(pogingCheck);
             }
@@ -140,7 +142,8 @@ namespace c_project_3_Youssef_mahtar
                     Width = 50,
                     Height = 20,
                     StrokeThickness = 4,
-                    Stroke = Brushes.White
+                    Stroke = Brushes.White,
+                    ToolTip = "Foute kleur"
                 };
                 WrapPanel1.Children.Add(pogingCheck);
             }
@@ -154,7 +157,8 @@ namespace c_project_3_Youssef_mahtar
                     Width = 50,
                     Height = 20,
                     StrokeThickness = 4,
-                    Stroke = Brushes.DarkRed
+                    Stroke = Brushes.DarkRed,
+                    ToolTip = "Juiste kleur, juiste positie"
                 };
                 WrapPanel2.Children.Add(pogingCheck);
             }
@@ -168,7 +172,8 @@ namespace c_project_3_Youssef_mahtar
                     Width = 50,
                     Height = 20,
                     StrokeThickness = 4,
-                    Stroke = Brushes.White
+                    Stroke = Brushes.White,
+                    ToolTip = "Juiste kleur, foute positie"
                 };
                 WrapPanel2.Children.Add(pogingCheck);
             }
@@ -182,7 +187,8 @@ namespace c_project_3_Youssef_mahtar
                     Width = 50,
                     Height = 20,
                     StrokeThickness = 4,
-                    Stroke = Brushes.White
+                    Stroke = Brushes.White,
+                    ToolTip = "Foute kleur"
                 };
                 WrapPanel2.Children.Add(pogingCheck);
             }
@@ -196,7 +202,8 @@ namespace c_project_3_Youssef_mahtar
                     Width = 50,
                     Height = 20,
                     StrokeThickness = 4,
-                    Stroke = Brushes.DarkRed
+                    Stroke = Brushes.DarkRed,
+                    ToolTip = "Juiste kleur, juiste positie"
                 };
                 WrapPanel3.Children.Add(pogingCheck);
             }
@@ -210,7 +217,8 @@ namespace c_project_3_Youssef_mahtar
                     Width = 50,
                     Height = 20,
                     StrokeThickness = 4,
-                    Stroke = Brushes.White
+                    Stroke = Brushes.White,
+                    ToolTip = "Juiste kleur, foute positie"
                 };
                 WrapPanel3.Children.Add(pogingCheck);
             }
@@ -224,7 +232,8 @@ namespace c_project_3_Youssef_mahtar
                     Width = 50,
                     Height = 20,
                     StrokeThickness = 4,
-                    Stroke = Brushes.White
+                    Stroke = Brushes.White,
+                    ToolTip = "Foute kleur"
                 };
                 WrapPanel3.Children.Add(pogingCheck);
             }
@@ -238,7 +247,8 @@ namespace c_project_3_Youssef_mahtar
                     Width = 50,
                     Height = 20,
                     StrokeThickness = 4,
-                    Stroke = Brushes.DarkRed
+                    Stroke = Brushes.DarkRed,
+                    ToolTip = "Juiste kleur, juiste positie"
                 };
                 WrapPanel4.Children.Add(pogingCheck);
             }
@@ -252,7 +262,8 @@ namespace c_project_3_Youssef_mahtar
                     Width = 50,
                     Height = 20,
                     StrokeThickness = 4,
-                    Stroke = Brushes.White
+                    Stroke = Brushes.White,
+                    ToolTip = "Juiste kleur, foute positie"
                 };
                 WrapPanel4.Children.Add(pogingCheck);
             }
@@ -266,7 +277,8 @@ namespace c_project_3_Youssef_mahtar
                     Width = 50,
                     Height = 20,
                     StrokeThickness = 4,
-                    Stroke = Brushes.White
+                    Stroke = Brushes.White,
+                    ToolTip = "Foute kleur"
                 };
                 WrapPanel4.Children.Add(pogingCheck);
             }
@@ -458,7 +470,7 @@ namespace c_project_3_Youssef_mahtar
         }
         private void showScore()
         {
-            scoreTextBox.Content = $"Huidige speler: {spelersLijst[huidigeSpeler]}\n" + "Score: " + score.ToString();
+            scoreLabel.Content = $"Huidige speler: {spelersLijst[huidigeSpeler]}\n" + "Score: " + score.ToString();
         }
 
         private void nieuwSpel()
