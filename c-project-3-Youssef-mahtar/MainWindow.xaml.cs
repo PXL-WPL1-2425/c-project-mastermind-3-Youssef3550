@@ -277,18 +277,30 @@ namespace c_project_3_Youssef_mahtar
             {
                 TimerPauze();
                 highscoreRegistreren();
-                var result = MessageBox.Show
-                    ($"Code gekraakt in {attempts} pogingen! Wil je nog eens?",
-                    "WINNER!",
-                    MessageBoxButton.YesNo,
+                if (huidigeSpeler + 1 < spelersLijst.Count)
+                {
+                    var result = MessageBox.Show
+                    ($"Code gekraakt in {attempts} pogingen!" +
+                    $"Nu is speler {spelersLijst[huidigeSpeler + 1]} aan de beurt.",
+                    $"{spelersLijst[huidigeSpeler]}",
+                    MessageBoxButton.OK,
                     MessageBoxImage.Information);
 
-                if (result == MessageBoxResult.Yes)
-                {
-                    nieuwSpel();
-                    TimerContinue();
+                    if (result == MessageBoxResult.OK)
+                    {
+                        nieuwSpel();
+                        TimerContinue();
+                    }
                 }
-
+                else
+                {
+                   var result = MessageBox.Show("Alle spelers zijn geweest! Wil je een nieuw spel starten?", "Klaar!", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        startGame();
+                        nieuwSpel();
+                    }
+                }
 
             }
         }
@@ -404,14 +416,28 @@ namespace c_project_3_Youssef_mahtar
             if (attempts > maxAttempts)
             {
                 TimerPauze();
-                var result = MessageBox.Show($"You failed! De correcte code was {codeString}." +
-                    $"Nog eens proberen?", "FAILED"
-                    , MessageBoxButton.YesNo
+                if (huidigeSpeler + 1 < spelersLijst.Count)
+                {
+                    var result = MessageBox.Show($"You failed! De correcte code was {codeString}." +
+                    $"Nu is speler {spelersLijst[huidigeSpeler + 1]} aan de beurt.",
+                    $"{spelersLijst[huidigeSpeler]}"
+                    , MessageBoxButton.OK
                     , MessageBoxImage.Question);
 
-                if (result == MessageBoxResult.Yes)
+                    if (result == MessageBoxResult.OK)
+                    {
+                        attempts = 0;
+                        nieuwSpel();
+                    }
+                }
+                else
                 {
-                    nieuwSpel();
+                    var result = MessageBox.Show("Alle spelers zijn geweest! Wil je een nieuw spel starten?", "Klaar!", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        startGame();
+                        nieuwSpel();
+                    }
                 }
                 TimerContinue();
             }
@@ -437,7 +463,7 @@ namespace c_project_3_Youssef_mahtar
         private void nieuwSpel()
         {
             TimerPauze();
-            startGame();
+            huidigeSpeler++;
             ComboBox1.Items.Clear();
             ComboBox2.Items.Clear();
             ComboBox3.Items.Clear();
