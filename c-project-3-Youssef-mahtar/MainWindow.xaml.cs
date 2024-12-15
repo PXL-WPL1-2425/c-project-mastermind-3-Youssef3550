@@ -45,8 +45,9 @@ namespace c_project_3_Youssef_mahtar
             LabelBorder();
             TextBoxCode();
             Attempts();
-            showScore();
             startGame();
+            showScore();
+            
 
             timer.Interval = new TimeSpan(0, 0, 0, 1);
             timer.Tick += startCountdown;
@@ -457,7 +458,7 @@ namespace c_project_3_Youssef_mahtar
         }
         private void showScore()
         {
-            scoreTextBox.Text = "Score: " + score.ToString();
+            scoreTextBox.Content = $"Huidige speler: {spelersLijst[huidigeSpeler]}\n" + "Score: " + score.ToString();
         }
 
         private void nieuwSpel()
